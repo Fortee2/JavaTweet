@@ -117,7 +117,7 @@ public class TwitterOAuth implements IAuthenication {
     }
 
     public void setRequestUrl(String url) throws MalformedURLException {
-        _requestUrl = new URL(url);;
+        _requestUrl = new URL(url);
     }
 
     public TwitterOAuth (){
@@ -165,7 +165,7 @@ public class TwitterOAuth implements IAuthenication {
                 "\",oauth_signature_method=\""+ this._signatureMethod +
                 "\",oauth_timestamp=\"" + _epochTime +
                 "\",oauth_nonce=\"" + _uniqueValue +
-                "\",oauth_version=\"1.0\",oauth_signature=\"" +   Encoder.UrlEncode(createSignature(createSigningKey(), createSignatureBase()) + "\"");   //URLEncoder.encode(createSignature(createSigningKey(), createSignatureBase()), "UTF-8") +"\"";
+                "\",oauth_version=\"1.0\",oauth_signature=\"" +   Encoder.UrlEncode(createSignature(createSigningKey(), createSignatureBase()) + "\"");
     }
 
     private static String toHexString(byte[] bytes) {
