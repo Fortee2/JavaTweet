@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="com.fenchurch.messaging">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/JavaTweet/out/artifacts/com_fenchurch_messaging/com.fenchurch.messaging.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

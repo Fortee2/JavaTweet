@@ -1,3 +1,5 @@
+package com.fenchurchtech.twitterconsole;
+
 import com.fenchurchtech.messaging.twitter.TwitterSearch;
 import com.fenchurchtech.messaging.twitter.TwitterStatus;
 import com.fenchurchtech.messaging.twitter.TwitterMessage;

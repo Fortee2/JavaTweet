@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="lib1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/JavaTweet/lib/commons-codec-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JavaTweet/lib/commons-logging-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JavaTweet/lib/httpcore-4.4.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JavaTweet/lib/httpclient-4.5.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
