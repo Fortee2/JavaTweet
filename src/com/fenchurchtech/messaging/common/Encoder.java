@@ -15,7 +15,7 @@ public class Encoder {
             }
             else
             {
-                result.append('%' +  Integer.toHexString(symbol).toUpperCase());
+                result.append('%' +  Integer.toHexString((int)symbol).toUpperCase());
             }
         }
 

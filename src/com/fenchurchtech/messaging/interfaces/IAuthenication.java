@@ -4,21 +4,21 @@ import java.io.UnsupportedEncodingException;
 
 public interface IAuthenication {
 
-    String getSignatureMethod();
-    void setSignatureMethod(String methodType);
+    public String getSignatureMethod();
+    public void setSignatureMethod(String methodType);
 
-    String getToken();
-    void setToken(String token) throws  UnsupportedEncodingException;
+    public String getToken();
+    public void setToken(String token) throws  UnsupportedEncodingException;
 
-    String getSecret();
-    void setSecret(String secret) throws Exception;
+    public String getSecret();
+    public void setSecret(String secret) throws Exception;
 
-    String getConsumerSecret();
+    public String getConsumerSecret();
     void setConsumerSecret(String secret) throws Exception;
 
-    String getConsumerKey();
+    public String getConsumerKey();
     void setConsumerKey(String key) throws Exception;
 
-    String getRequestMethod();
-    void setRequestMethod(String httpMethod) throws Exception;
+    public String getRequestMethod();
+    public void setRequestMethod(String httpMethod) throws Exception;
 }

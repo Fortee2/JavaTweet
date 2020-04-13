@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="com.fenchurch.messaging">
+    <output-path>$PROJECT_DIR$/out/artifacts/com_fenchurch_messaging</output-path>
+    <root id="archive" name="com.fenchurch.messaging.jar">
+      <element id="module-output" name="Twitter" />
+    </root>
+  </artifact>
+</component>

@@ -1,3 +1,4 @@
+import com.fenchurchtech.messaging.twitter.TwitterSearch;
 import com.fenchurchtech.messaging.twitter.TwitterStatus;
 import com.fenchurchtech.messaging.twitter.TwitterMessage;
 
@@ -6,27 +7,17 @@ import java.util.Properties;
 
 public class ExecuteTweet {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Properties prop = loadProperties();
 
-        TwitterStatus status = new TwitterStatus();
+        TwitterSearch search = new TwitterSearch();
+        search.setConsumerKey(prop.getProperty("twitter.consumerKey"));
+        search.setConsumerSecret(prop.getProperty("twitter.consumerSecret"));
+        search.setToken(prop.getProperty("twitter.token"));
+        search.setSecret(prop.getProperty("twitter.secret"));
+        search.setEndpoint("https://api.twitter.com/1.1/search/tweets.json?q=");
 
-        try {
-            assert prop != null;
-            status.setConsumerKey(prop.getProperty("twitter.consumerKey"));
-            status.setConsumerSecret(prop.getProperty("twitter.consumerSecret"));
-            status.setToken(prop.getProperty("twitter.token"));
-            status.setSecret(prop.getProperty("twitter.secret"));
-
-            status.setEndpoint(  "https://api.twitter.com/1.1/statuses/update.json?status=" );
-            TwitterMessage tm = new TwitterMessage();
-            tm.setMessage("hello api test");
-            status.SendNotification(tm);
-
-            System.out.println(tm.getStatus());
-        }catch  (Exception e){
-            System.out.println(e.getMessage());
-        }
+        search.SendSearch("Jeep");
     }
 
     public static Properties loadProperties(){
@@ -46,4 +37,24 @@ public class ExecuteTweet {
         return null;
     }
 
+    public static void sendStatusUpdate(String statusMsg, Properties prop){
+        TwitterStatus status = new TwitterStatus();
+
+        try {
+            assert prop != null;
+            status.setConsumerKey(prop.getProperty("twitter.consumerKey"));
+            status.setConsumerSecret(prop.getProperty("twitter.consumerSecret"));
+            status.setToken(prop.getProperty("twitter.token"));
+            status.setSecret(prop.getProperty("twitter.secret"));
+
+            status.setEndpoint(  "https://api.twitter.com/1.1/statuses/update.json?status=" );
+            TwitterMessage tm = new TwitterMessage();
+            tm.setMessage(statusMsg);
+            status.SendNotification(tm);
+
+            System.out.println(tm.getStatus());
+        }catch  (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }
