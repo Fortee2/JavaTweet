@@ -1,6 +1,6 @@
 package com.fenchurchtech.messaging.twitter;
 
-import com.fenchurchtech.messaging.interfaces.INotification;
+import com.fenchurchtech.messaging.twitter.interfaces.INotification;
 
 public class TwitterMessage implements INotification {
     private String _message ="";

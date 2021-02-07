@@ -1,6 +1,4 @@
-package com.fenchurchtech.messaging.common;
-
-import com.fenchurchtech.messaging.common.QueryParameter;
+package com.fenchurchtech.messaging.twitter.common;
 
 import java.util.Comparator;
 

@@ -1,4 +1,4 @@
-package com.fenchurchtech.messaging.interfaces;
+package com.fenchurchtech.messaging.twitter.interfaces;
 
 public interface INotification {
     void setMessage(String messageBody);

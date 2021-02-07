@@ -1,85 +1,32 @@
 package com.fenchurchtech.messaging.twitter;
 
-import com.fenchurchtech.messaging.common.Encoder;
-import com.fenchurchtech.messaging.interfaces.APIRequest;
-import com.fenchurchtech.messaging.interfaces.INotification;
+import com.fenchurchtech.messaging.twitter.base.TwitterAuthProperties;
+import com.fenchurchtech.messaging.twitter.common.Encoder;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
-public class TwitterSearch implements APIRequest {
+
+public class TwitterSearch extends TwitterAuthProperties {
     private String _endpoint = "";
-    private String _authorizationHeader ="";
-    private String _encodedTerm = "";
-    private CloseableHttpClient httpClient = HttpClients.createDefault();
-    private String _token;
-    private String _secret;
-    private String _consumerKey;
-    private String _consumerSecret;
+    private final CloseableHttpClient httpClient = HttpClients.createDefault();
 
-    @Override
     public String getEndPoint() {
         return _endpoint;
     }
 
-    @Override
+
     public void setEndpoint(String endpoint) {
         //TODO: Add some validation
 
         _endpoint = endpoint;
     }
 
-    @Override
-    public INotification SendNotification(INotification message) throws Exception {
-        return null;
-    }
-
-    public String getToken() {
-        return this._token;
-    }
-
-    public void setToken(String token ) throws UnsupportedEncodingException {
-        this._token = token;
-    }
-
-    public String getSecret() {
-        return null;
-    }
-
-
-    public void setSecret(String secret) throws Exception {
-        if (secret.isBlank()) throw new Exception("Invalid Secret");
-        this._secret = secret;
-    }
-
-    public String getConsumerSecret() {
-        return this._consumerKey;
-    }
-
-    public void setConsumerSecret(String secret) throws Exception {
-        if (secret.isBlank()) throw new Exception("Invalid Secret");
-
-        this._consumerSecret = secret;
-    }
-
-    public String getConsumerKey() {
-        return null;
-    }
-
-    public void setConsumerKey(String key) throws Exception {
-        if (key.isBlank()) throw new Exception("Invalid Key");
-
-        this._consumerKey = key;
-    }
-
     public void SendSearch(String searchTerm){
-        _encodedTerm = Encoder.UrlEncode(searchTerm);   //URLEncoder.encode(message.getMessage(), "UTF-8");
+        String _encodedTerm = Encoder.UrlEncode(searchTerm);   //URLEncoder.encode(message.getMessage(), "UTF-8");
 
         try{
             TwitterOAuth auth = new TwitterOAuth();
@@ -91,7 +38,7 @@ public class TwitterSearch implements APIRequest {
             auth.setToken(_token);
             auth.setSecret(_secret);
 
-            _authorizationHeader = auth.GenerateAuthHeader();
+            String _authorizationHeader = auth.GenerateAuthHeader();
 
             HttpGet getRequest = new HttpGet(_endpoint + searchTerm);
 

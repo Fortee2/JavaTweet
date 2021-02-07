@@ -12,6 +12,10 @@ public class ExecuteTweet {
     public static void main(String[] args) throws Exception {
         Properties prop = loadProperties();
 
+        twitterSearch(prop);
+    }
+
+    private static void twitterSearch(Properties prop) throws Exception {
         TwitterSearch search = new TwitterSearch();
         search.setConsumerKey(prop.getProperty("twitter.consumerKey"));
         search.setConsumerSecret(prop.getProperty("twitter.consumerSecret"));

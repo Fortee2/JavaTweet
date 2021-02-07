@@ -1,4 +1,4 @@
-package com.fenchurchtech.messaging.common;
+package com.fenchurchtech.messaging.twitter.common;
 
 public class Encoder {
     private static String unreservedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~";

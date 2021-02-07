@@ -1,8 +1,9 @@
 package com.fenchurchtech.messaging.twitter;
 
-import com.fenchurchtech.messaging.common.Encoder;
-import com.fenchurchtech.messaging.interfaces.APIRequest;
-import com.fenchurchtech.messaging.interfaces.INotification;
+import com.fenchurchtech.messaging.twitter.base.TwitterAuthProperties;
+import com.fenchurchtech.messaging.twitter.common.Encoder;
+import com.fenchurchtech.messaging.twitter.interfaces.APIRequest;
+import com.fenchurchtech.messaging.twitter.interfaces.INotification;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -11,17 +12,12 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
-public class TwitterStatus implements APIRequest {
+public class TwitterStatus extends TwitterAuthProperties implements APIRequest {
     private String _endpoint = "";
     private String _authorizationHeader ="";
     private String _encodedTweet = "";
-    private CloseableHttpClient httpClient = HttpClients.createDefault();
-    private String _token;
-    private String _secret;
-    private String _consumerKey;
-    private String _consumerSecret;
+    private final CloseableHttpClient httpClient = HttpClients.createDefault();
 
     @Override
     public String getEndPoint() {
@@ -33,44 +29,6 @@ public class TwitterStatus implements APIRequest {
         //TODO: Add some validation
 
          _endpoint = endpoint;
-    }
-
-    public String getToken() {
-        return this._token;
-    }
-
-    public void setToken(String token ) throws UnsupportedEncodingException {
-        this._token = token;
-    }
-
-    public String getSecret() {
-        return null;
-    }
-
-
-    public void setSecret(String secret) throws Exception {
-        if (secret.isBlank()) throw new Exception("Invalid Secret");
-        this._secret = secret;
-    }
-
-    public String getConsumerSecret() {
-        return this._consumerKey;
-    }
-
-    public void setConsumerSecret(String secret) throws Exception {
-        if (secret.isBlank()) throw new Exception("Invalid Secret");
-
-        this._consumerSecret = secret;
-    }
-
-    public String getConsumerKey() {
-        return null;
-    }
-
-    public void setConsumerKey(String key) throws Exception {
-        if (key.isBlank()) throw new Exception("Invalid Key");
-
-        this._consumerKey = key;
     }
 
     @Override
@@ -115,7 +73,7 @@ public class TwitterStatus implements APIRequest {
                 resp.getEntity().getContent()));
 
         String inputLine;
-        StringBuffer response = new StringBuffer();
+        StringBuilder response = new StringBuilder();
 
         while ((inputLine = reader.readLine()) != null) {
             response.append(inputLine);

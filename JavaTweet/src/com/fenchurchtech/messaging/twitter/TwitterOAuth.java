@@ -1,21 +1,20 @@
 package com.fenchurchtech.messaging.twitter;
 
 
-import com.fenchurchtech.messaging.common.Encoder;
-import com.fenchurchtech.messaging.common.QueryParameterCompare;
-import com.fenchurchtech.messaging.interfaces.IAuthenication;
+import com.fenchurchtech.messaging.twitter.common.Encoder;
+import com.fenchurchtech.messaging.twitter.common.QueryParameterCompare;
+import com.fenchurchtech.messaging.twitter.interfaces.IAuthenication;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.util.*;
-import com.fenchurchtech.messaging.common.QueryParameter;
+import com.fenchurchtech.messaging.twitter.common.QueryParameter;
 
 public class TwitterOAuth implements IAuthenication {
     protected final String HMAC_SHA1_ALGORITHM = "HmacSHA1";

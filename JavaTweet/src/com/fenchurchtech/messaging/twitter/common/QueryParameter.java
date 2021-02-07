@@ -1,6 +1,4 @@
-package com.fenchurchtech.messaging.common;
-
-import java.util.Comparator;
+package com.fenchurchtech.messaging.twitter.common;
 
 public class QueryParameter {
     private String _name ="";

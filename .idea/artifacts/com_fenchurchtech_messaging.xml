@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="com.fenchurchtech.messaging">
+    <output-path>$PROJECT_DIR$/out/artifacts/com_fenchurchtech_messaging</output-path>
+    <root id="archive" name="com.fenchurchtech.messaging.jar">
+      <element id="module-output" name="Twitter" />
+      <element id="module-output" name="JavaTweet" />
+      <element id="library" level="project" name="lib1" />
+    </root>
+  </artifact>
+</component>
