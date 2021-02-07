@@ -30,18 +30,16 @@ public class TwitterOAuth implements IAuthenication {
     protected final String OAuthTokenSecretKey = "oauth_token_secret";
 
     private String _consumerKey;
-    private String _consumerSecret;
     private String _encodedConsumerKey;
     private String _encodedConsumerSecret;
-    private String _secret;
     private String _encodedSecret;
     private String _token;
     private String _encodedToken;
     private String _signatureMethod;
     private String _requestMethod;
-    private String _uniqueValue;
+    private final String _uniqueValue;
     private URL _requestUrl;
-    private long _epochTime;
+    private final long _epochTime;
 
     @Override
     public String getSignatureMethod() {
@@ -73,7 +71,6 @@ public class TwitterOAuth implements IAuthenication {
     public void setSecret(String secret) throws Exception {
         if (secret.isBlank()) throw new Exception("Invalid Secret");
 
-        this._secret = secret;
         this._encodedSecret = Encoder.UrlEncode(secret);  //URLEncoder.encode(secret, "UTF-8");
 
     }
@@ -87,7 +84,6 @@ public class TwitterOAuth implements IAuthenication {
     public void setConsumerSecret(String secret) throws Exception {
         if (secret.isBlank()) throw new Exception("Invalid Secret");
 
-        this._consumerSecret = secret;
         this._encodedConsumerSecret =  Encoder.UrlEncode(secret);  //URLEncoder.encode(secret, "UTF-8");
     }
 
@@ -116,7 +112,7 @@ public class TwitterOAuth implements IAuthenication {
     }
 
     public void setRequestUrl(String url) throws MalformedURLException {
-        _requestUrl = new URL(url);;
+        _requestUrl = new URL(url);
     }
 
     public TwitterOAuth (){
@@ -129,8 +125,8 @@ public class TwitterOAuth implements IAuthenication {
     private String generateNonce()
     {
         // Just a simple implementation of a random number between 123400 and 9999999
-        Integer i =  new Random().nextInt(976599) + 9999999;
-        return  i.toString();
+        int i =  new Random().nextInt(976599) + 9999999;
+        return Integer.toString(i);
     }
 
     public String getSignature() throws UnsupportedEncodingException {
@@ -144,7 +140,7 @@ public class TwitterOAuth implements IAuthenication {
     private String createSignature(String key, String encodedString){
         byte[] keyBytes = key.getBytes();
 
-        Mac mac = null;
+        Mac mac;
         try {
             SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, HMAC_SHA1_ALGORITHM);
             mac = Mac.getInstance("HmacSHA1");
@@ -178,8 +174,12 @@ public class TwitterOAuth implements IAuthenication {
     }
 
     private String createSignatureBase() throws UnsupportedEncodingException{
+        String queryString = _requestUrl.getQuery();
+        List<QueryParameter> parameters = new ArrayList<>();
 
-        List<QueryParameter> parameters = GetQueryParameters(_requestUrl.getQuery().replace('?',' ').trim().split("&")); //Get the url parameters
+        if(queryString != null) {
+            parameters = GetQueryParameters(_requestUrl.getQuery().replace('?', ' ').trim().split("&")); //Get the url parameters
+        }
 
         parameters.add(new QueryParameter(OAuthVersionKey, "1.0"));
         parameters.add(new QueryParameter(OAuthNonceKey, _uniqueValue));
@@ -198,10 +198,6 @@ public class TwitterOAuth implements IAuthenication {
         parameters.sort(new QueryParameterCompare());  //OAuth requires parameter be in alphabetical order.
 
         String normalizedUrl =  _requestUrl.getProtocol() + "://"  + _requestUrl.getHost();
-/*        if (!((_requestUrl.getProtocol() == "http" && _requestUrl.getPort() == 80) || (_requestUrl.getProtocol() == "https" && _requestUrl.getPort() == 443)))
-        {
-            normalizedUrl += ":" + _requestUrl.getPort();
-        }*/
         normalizedUrl += _requestUrl.getPath();
         String normalizedRequestParameters = NormalizeRequestParameters(parameters);
 
@@ -251,7 +247,7 @@ public class TwitterOAuth implements IAuthenication {
         boolean isFirst = true;
 
         for (QueryParameter qp :parameters) {
-            sb.append( ((!isFirst)?"&":"")  + qp.getName() + "=" + qp.getValue());
+            sb.append((!isFirst) ? "&" : "").append(qp.getName()).append("=").append(qp.getValue());
 
             if (isFirst)
             {

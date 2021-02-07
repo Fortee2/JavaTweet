@@ -6,7 +6,7 @@ public class QueryParameterCompare implements Comparator<QueryParameter>
 {
     @Override
     public int compare(QueryParameter o1, QueryParameter o2) {
-        if (o1.getName() == o2.getName())
+        if (o1.getName().equals(o2.getName()))
         {
             return o1.getValue().compareTo(o2.getValue());
         }

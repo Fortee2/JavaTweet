@@ -1,8 +1,8 @@
 package com.fenchurchtech.messaging.twitter.common;
 
 public class QueryParameter {
-    private String _name ="";
-    private String _value ="";
+    private String _name;
+    private String _value;
 
     public String getName() {
         return _name;

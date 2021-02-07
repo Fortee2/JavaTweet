@@ -1,7 +1,6 @@
 package com.fenchurchtech.messaging.twitter;
 
 import com.fenchurchtech.messaging.twitter.base.TwitterAuthProperties;
-import com.fenchurchtech.messaging.twitter.common.Encoder;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -9,20 +8,16 @@ import org.apache.http.impl.client.HttpClients;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
 public class TwitterFriends extends TwitterAuthProperties {
     private final String _endpoint = "https://api.twitter.com/1.1/friends/list.json";
     private String _authorizationHeader ="";
-    private String _encodedTerm = "";
-    private CloseableHttpClient httpClient = HttpClients.createDefault();
+    private final CloseableHttpClient httpClient = HttpClients.createDefault();
 
-
-    public void RequestFriends(String searchTerm){
-        _encodedTerm = Encoder.UrlEncode(searchTerm);   //URLEncoder.encode(message.getMessage(), "UTF-8");
-
+    public void RequestFriends(){
         try{
-            _authorizationHeader = getTwitterOAuth().GenerateAuthHeader();
+            TwitterOAuth auth = getTwitterOAuth();
+            _authorizationHeader = auth.GenerateAuthHeader();
             CloseableHttpResponse resp = httpClient.execute(getHttpGet());
 
             System.out.println("GET Response Status:: "
@@ -32,7 +27,7 @@ public class TwitterFriends extends TwitterAuthProperties {
                     resp.getEntity().getContent()));
 
             String inputLine;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
 
             while ((inputLine = reader.readLine()) != null) {
                 response.append(inputLine);
@@ -47,8 +42,6 @@ public class TwitterFriends extends TwitterAuthProperties {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-
-
     }
 
     private HttpGet getHttpGet() {

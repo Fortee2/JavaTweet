@@ -59,7 +59,7 @@ public class TwitterSearch extends TwitterAuthProperties {
                     resp.getEntity().getContent()));
 
             String inputLine;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
 
             while ((inputLine = reader.readLine()) != null) {
                 response.append(inputLine);
