@@ -56,13 +56,7 @@ public class TwitterStatus extends TwitterAuthProperties implements APIRequest {
     }
 
     private String sendToTwitter() throws IOException {
-        HttpPost postNotification = new HttpPost(_endpoint + _encodedTweet);
-
-        postNotification.addHeader("Authorization", _authorizationHeader);
-        postNotification.addHeader("User-Agent","FenchurchRuntime 0.01");
-        postNotification.addHeader("Host", "api.twitter.com");
-        postNotification.addHeader("Accept", "*/*");
-        postNotification.addHeader("Accept-Encoding", "utf-8");
+        HttpPost postNotification = getPostNotification();
 
         CloseableHttpResponse resp = httpClient.execute(postNotification);
 
@@ -85,6 +79,17 @@ public class TwitterStatus extends TwitterAuthProperties implements APIRequest {
         httpClient.close();
 
         return response.toString();
+    }
+
+    private HttpPost getPostNotification() {
+        HttpPost postNotification = new HttpPost(_endpoint + _encodedTweet);
+
+        postNotification.addHeader("Authorization", _authorizationHeader);
+        postNotification.addHeader("User-Agent","FenchurchRuntime 0.01");
+        postNotification.addHeader("Host", "api.twitter.com");
+        postNotification.addHeader("Accept", "*/*");
+        postNotification.addHeader("Accept-Encoding", "utf-8");
+        return postNotification;
     }
 
 

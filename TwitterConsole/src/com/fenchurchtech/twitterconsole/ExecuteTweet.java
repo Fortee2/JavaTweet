@@ -1,5 +1,6 @@
 package com.fenchurchtech.twitterconsole;
 
+import com.fenchurchtech.messaging.twitter.TwitterFriends;
 import com.fenchurchtech.messaging.twitter.TwitterSearch;
 import com.fenchurchtech.messaging.twitter.TwitterStatus;
 import com.fenchurchtech.messaging.twitter.TwitterMessage;
@@ -12,7 +13,7 @@ public class ExecuteTweet {
     public static void main(String[] args) throws Exception {
         Properties prop = loadProperties();
 
-        twitterSearch(prop);
+        twitterFriendsList(prop);
     }
 
     private static void twitterSearch(Properties prop) throws Exception {
@@ -62,5 +63,15 @@ public class ExecuteTweet {
         }catch  (Exception e){
             System.out.println(e.getMessage());
         }
+    }
+
+    private static void twitterFriendsList(Properties prop) throws Exception {
+        TwitterFriends friends = new TwitterFriends();
+        friends.setConsumerKey(prop.getProperty("twitter.consumerKey"));
+        friends.setConsumerSecret(prop.getProperty("twitter.consumerSecret"));
+        friends.setToken(prop.getProperty("twitter.token"));
+        friends.setSecret(prop.getProperty("twitter.secret"));
+
+        friends.RequestFriends();
     }
 }
