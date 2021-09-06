@@ -223,10 +223,12 @@ public class TwitterOAuth implements IAuthenication {
                     if (s.indexOf('=') > -1)
                     {
                         String[] temp = s.split("=");
-                        if(temp[0].toLowerCase().equals("status")){
-                            result.add(new QueryParameter(temp[0],   temp[1] ));
-                        }else {
-                            result.add(new QueryParameter(temp[0], Encoder.UrlEncode(temp[1])));  //   URLEncoder.encode(temp[1], "utf-8")));
+                        if(temp.length > 1) {  //empty parameter check
+                            if (temp[0].toLowerCase().equals("status")) {
+                                result.add(new QueryParameter(temp[0], temp[1]));
+                            } else {
+                                result.add(new QueryParameter(temp[0], Encoder.UrlEncode(temp[1])));  //   URLEncoder.encode(temp[1], "utf-8")));
+                            }
                         }
                     }
                     else
